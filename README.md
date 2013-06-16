@@ -1,5 +1,5 @@
 ## ![eppz!tools](http://eppz.eu/layout/common/eppz_50_GitHub.png) eppz!reachability
-Currently this project shows that *IP address reachability is not working when using anynchronous method* of SCNetworkReachability class. I hooked up a really brief UI to prove this, and yet I cannot see any solution actually (while On-demand reachability still works with IP addresses as well).
+Currently this project shows that **IP address reachability is not working when using anynchronous method** of SCNetworkReachability class. I hooked up a really brief UI to prove this, and yet I cannot see any solution actually (while On-demand reachability still works with IP addresses as well).
 
 - - -
 
