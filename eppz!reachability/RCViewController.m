@@ -12,20 +12,21 @@
 
 #import "RCViewController.h"
 
-#import <Foundation/Foundation.h>
-#import <SystemConfiguration/SystemConfiguration.h>
-
 
 @implementation RCViewController
 
 
 #pragma mark - Interactions
 
+-(void)textFieldDidBeginEditing:(UITextField*) textField
+{ [self.statusView reset]; }
+
 -(BOOL)textFieldShouldReturn:(UITextField*) textField
 {
     //Invoke reachability.
     [self reach:textField.text];
     
+    //Hide keyboard.
     [textField resignFirstResponder];
     return YES;
 }
@@ -33,62 +34,60 @@
 
 #pragma mark - Reachability
 
+-(void)reach:(NSString*) host
+{
+    //Save for UI.
+    self.statusView.latestHost = host;
+    
+    //Create Reachability.
+    
+        SCNetworkReachabilityRef reachabilityRef;
+    
+        BOOL hostSeemsIPaddress = ([[[host componentsSeparatedByString:@"."] objectAtIndex:0] integerValue] != 0);
+        if (hostSeemsIPaddress) //Reachability for host address.
+        {
+            struct sockaddr_in hostAddress;
+            hostAddress.sin_family = AF_INET;
+            hostAddress.sin_addr.s_addr = inet_addr([host UTF8String]);
+            reachabilityRef = SCNetworkReachabilityCreateWithAddress(NULL, (const struct sockaddr*)&hostAddress);
+        }
+        
+        else //Reachability for host name.
+        {
+            reachabilityRef = SCNetworkReachabilityCreateWithName(nil, [host UTF8String]);
+        }
+    
+        //Add this viewController as context object.
+        SCNetworkReachabilityContext context = {0, (__bridge void*)self, NULL, NULL, NULL};
+    
+    //Get reachability status.
+    
+        BOOL asynchronous = self.rechabilityModeSegmentedControl.selectedSegmentIndex;
+        if (asynchronous) //The asynchronous way, NOT WORKS (!!!) with IP addresses as host.
+        {
+            //Set callback, dispatch callbacks on a background thread.
+            SCNetworkReachabilitySetCallback(reachabilityRef, reachabilityCallback, &context);
+            SCNetworkReachabilitySetDispatchQueue(reachabilityRef, dispatch_queue_create("com.eppz.reachability", nil));
+        }
+        else //The synchronous way, works well with IP addresses as host.
+
+        {
+            //Get flags.
+            SCNetworkReachabilityFlags flags;
+            if (SCNetworkReachabilityGetFlags(reachabilityRef, &flags))
+                [self.statusView showReachabilityFlags:flags];
+    }
+}
+
 static void reachabilityCallback(SCNetworkReachabilityRef reachabilityRef, SCNetworkReachabilityFlags flags, void* info)
 {
-    RCViewController *viewController = (__bridge RCViewController*)info;
-    [viewController showReachabilityFlags:flags];
+    RCViewController *viewController = (__bridge RCViewController*)info; //Cast context object.
+    dispatch_async(dispatch_get_main_queue(), ^{ [viewController.statusView showReachabilityFlags:flags]; }); //UI updates only on the main thread.
     
-    //Tear down reachability.
-    SCNetworkReachabilityUnscheduleFromRunLoop(reachabilityRef, CFRunLoopGetMain(), kCFRunLoopDefaultMode);
+    //Tear down reachability instance.
     CFRelease(reachabilityRef);
 }
 
--(void)reach:(NSString*) hostName
-{
-	SCNetworkReachabilityRef reachabilityRef = SCNetworkReachabilityCreateWithName(NULL, [hostName UTF8String]); //Create.
-    SCNetworkReachabilityContext context = {0, (__bridge void*)self, nil, nil, nil}; //Add self as a context.
-    
-    //The synchronous way, works well with IP addresses as hostname.
-    if (YES)
-    {
-        //Get flags.
-        SCNetworkReachabilityFlags flags;
-        SCNetworkReachabilityGetFlags(reachabilityRef, &flags);
-        
-        //Show.
-        [self showReachabilityFlags:flags];
-    }
-    
-    //The asynchronous way, NOT WORKS (!!!) with IP addresses as hostname.
-    else
-    {
-        //Add reachabilityCallback() as callback function.
-        SCNetworkReachabilitySetCallback(reachabilityRef, reachabilityCallback, &context);
-        
-        //Schedule for the main runloop.
-        SCNetworkReachabilityScheduleWithRunLoop(reachabilityRef, CFRunLoopGetMain(), kCFRunLoopDefaultMode);
-    }
-}
-
--(void)showReachabilityFlags:(SCNetworkReachabilityFlags) flags
-{
-    //Human readable.
-    NSString *reachabilityFlags = [NSString stringWithFormat:@"Reachability flags: %c%c%c%c%c%c%c%c%c",
-                                   (flags & kSCNetworkReachabilityFlagsIsWWAN)				 ? 'W' : '-',
-                                   (flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
-                                   (flags & kSCNetworkReachabilityFlagsTransientConnection)  ? 't' : '-',
-                                   (flags & kSCNetworkReachabilityFlagsConnectionRequired)   ? 'c' : '-',
-                                   (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic)  ? 'C' : '-',
-                                   (flags & kSCNetworkReachabilityFlagsInterventionRequired) ? 'i' : '-',
-                                   (flags & kSCNetworkReachabilityFlagsConnectionOnDemand)   ? 'D' : '-',
-                                   (flags & kSCNetworkReachabilityFlagsIsLocalAddress)       ? 'l' : '-',
-                                   (flags & kSCNetworkReachabilityFlagsIsDirect)             ? 'd' : '-'];
-    
-    //UI sugar.
-    self.statusLabel.alpha = 1.0;
-    self.statusLabel.text = reachabilityFlags;
-    [UIView animateWithDuration:2.0 animations:^{ self.statusLabel.alpha = 0.0; }];
-}
 
 @end
 

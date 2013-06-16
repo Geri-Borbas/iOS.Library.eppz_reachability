@@ -1,5 +1,5 @@
 //
-//  RCViewController.h
+//  RCRechabilityStatusView.h
 //  eppz!tools
 //
 //  Created by Borbás Geri on 6/14/13.
@@ -11,20 +11,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-
 #import <SystemConfiguration/SystemConfiguration.h>
-#import <netinet/in.h>
-#import <arpa/inet.h>
-
-#import "RCRechabilityStatusView.h"
 
 
-@interface RCViewController : UIViewController
+@interface RCRechabilityStatusView : UIView
 
-    <UITextFieldDelegate>
-
-@property (nonatomic, weak) IBOutlet UISegmentedControl *rechabilityModeSegmentedControl;
-@property (nonatomic, weak) IBOutlet RCRechabilityStatusView *statusView;
+@property (nonatomic, strong) NSString *latestHost;
+@property (nonatomic, weak) IBOutlet UILabel *hostLabel;
+-(void)reset;
+-(void)showReachabilityFlags:(SCNetworkReachabilityFlags) flags;
 
 @end
