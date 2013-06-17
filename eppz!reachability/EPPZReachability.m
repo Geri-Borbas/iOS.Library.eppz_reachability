@@ -204,6 +204,8 @@ static void reachabilityCallback(SCNetworkReachabilityRef reachabilityRef, SCNet
     
     //Network status (from Apple's Reachability sample).
     
+        //TODO: Untangle this to a more simple/readable stuff.
+    
         _reachableViaWiFi = _reachableViaCellular = _reachable = NO; //Reset.
         
         _notReachable = (self.reachableFlag == NO);
@@ -212,7 +214,8 @@ static void reachabilityCallback(SCNetworkReachabilityRef reachabilityRef, SCNet
         _reachableViaWiFi = (self.connectionRequiredFlag == NO);
         if (self.connectionOnDemandFlag || self.connectionOnTrafficFlag) { _reachableViaWiFi = (self.interventionRequiredFlag == NO); }
         _reachableViaCellular = ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN);
-        
+        if (_reachableViaCellular) _reachableViaWiFi = NO;
+    
         _reachable = (self.reachableViaWiFi || self.reachableViaCellular);
         _notReachable = (self.reachableViaWiFi == NO && self.reachableViaCellular == NO);   
 }
