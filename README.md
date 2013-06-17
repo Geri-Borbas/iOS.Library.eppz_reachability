@@ -27,6 +27,7 @@ SCNetworkReachabilityFlags reachabilityFlags;
 SCNetworkReachabilityGetFlags(reachabilityRef, &reachabilityFlags);
 ```
 The rest is just implementation sugar. Three innocent lines of code. No notifications (which I instinctively don’t like), no run loops, no any weird stuff, like external setting an objects instance variables. Just the pure feature. The sample above uses a synchronous call I found in SCNetworkReachabiliy documentation called [SCNetworkReachabilityGetFlags](http://developer.apple.com/library/ios/documentation/SystemConfiguration/Reference/SCNetworkReachabilityRef/Reference/reference.html#//apple_ref/c/func/SCNetworkReachabilityGetFlags). So I built this implementation from the ground up to have a more Cocoa Reachability, and to get rid of any unnecessary stuff.
+
 My personal favourite is that this implementation **just works fine with IP addresses as well** (this is the main reason I wrote this Nth reachability wrapper actually). I've struggeled with this issue for days, you can read more about it at [Why asynchronous SCNetworkReachability not works with IP addresses?](http://eppz.eu/blog/?p=260). So factory methods accepts both hostnames and IP addresses.
 ```Objective-C
 +(void)listenHost:(NSString*) hostNameOrAddress delegate:(id<EPPZReachabilityDelegate>) delegate; 
