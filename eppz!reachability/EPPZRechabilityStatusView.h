@@ -1,5 +1,5 @@
 //
-//  RCViewController.h
+//  EPPZRechabilityStatusView.h
 //  eppz!tools
 //
 //  Created by Borbás Geri on 6/14/13.
@@ -11,20 +11,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-
 #import <SystemConfiguration/SystemConfiguration.h>
-#import <netinet/in.h>
-#import <arpa/inet.h>
-
-#import "RCRechabilityStatusView.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import "EPPZReachability.h"
 
 
-@interface RCViewController : UIViewController
+@interface EPPZRechabilityStatusView : UIView
 
-    <UITextFieldDelegate>
 
-@property (nonatomic, weak) IBOutlet UISegmentedControl *rechabilityModeSegmentedControl;
-@property (nonatomic, weak) IBOutlet RCRechabilityStatusView *statusView;
+@property (nonatomic) BOOL listening;
+@property (nonatomic, strong) NSString *hostNameOrIPaddress;
+
+-(void)reset;
+-(void)showReachabilityStatus:(EPPZReachability*) reachability;
+
 
 @end

@@ -16,14 +16,18 @@
 		AE1D57DC176CEB8F003699F7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AE1D57DB176CEB8F003699F7 /* Default.png */; };
 		AE1D57DE176CEB8F003699F7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE1D57DD176CEB8F003699F7 /* Default@2x.png */; };
 		AE1D57E0176CEB8F003699F7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE1D57DF176CEB8F003699F7 /* Default-568h@2x.png */; };
-		AE1D57E3176CEB8F003699F7 /* RCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1D57E2176CEB8F003699F7 /* RCViewController.m */; };
-		AE1D57F1176CEDE7003699F7 /* RCViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE1D57F0176CEDE7003699F7 /* RCViewController.xib */; };
 		AE1D57F3176CEE1F003699F7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1D57F2176CEE1F003699F7 /* SystemConfiguration.framework */; };
 		AE1D57F8176CEF63003699F7 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AE1D57F4176CEF62003699F7 /* icon.png */; };
 		AE1D57F9176CEF63003699F7 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE1D57F5176CEF62003699F7 /* icon@2x.png */; };
 		AE1D57FA176CEF63003699F7 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE1D57F6176CEF62003699F7 /* icon-72@2x.png */; };
 		AE1D57FB176CEF63003699F7 /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = AE1D57F7176CEF62003699F7 /* icon-72.png */; };
-		AE4B8C5E176D43D100A80E5A /* RCRechabilityStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4B8C5D176D43D100A80E5A /* RCRechabilityStatusView.m */; };
+		AE4B8C5E176D43D100A80E5A /* EPPZRechabilityStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4B8C5D176D43D100A80E5A /* EPPZRechabilityStatusView.m */; };
+		AE8F860A176E39FB00BB0273 /* RCReachabilityClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8F8608176E39FB00BB0273 /* RCReachabilityClientViewController.m */; };
+		AE8F860D176E3A2C00BB0273 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AE8F860C176E3A2C00BB0273 /* README.md */; };
+		AE8F860F176E3AEE00BB0273 /* RCReachabilityClientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE8F860E176E3AEE00BB0273 /* RCReachabilityClientViewController.xib */; };
+		AE8F8611176E419800BB0273 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE8F8610176E419800BB0273 /* AudioToolbox.framework */; };
+		AEEBC0E9176DF9A5006DC50B /* EPPZReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AEEBC0E8176DF9A5006DC50B /* EPPZReachability.m */; };
+		AEEBC0EC176E0807006DC50B /* NSString+EPPZReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AEEBC0EB176E0807006DC50B /* NSString+EPPZReachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,16 +44,22 @@
 		AE1D57DB176CEB8F003699F7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		AE1D57DD176CEB8F003699F7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		AE1D57DF176CEB8F003699F7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		AE1D57E1176CEB8F003699F7 /* RCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCViewController.h; sourceTree = "<group>"; };
-		AE1D57E2176CEB8F003699F7 /* RCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCViewController.m; sourceTree = "<group>"; };
-		AE1D57F0176CEDE7003699F7 /* RCViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCViewController.xib; sourceTree = "<group>"; };
 		AE1D57F2176CEE1F003699F7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AE1D57F4176CEF62003699F7 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		AE1D57F5176CEF62003699F7 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		AE1D57F6176CEF62003699F7 /* icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72@2x.png"; sourceTree = "<group>"; };
 		AE1D57F7176CEF62003699F7 /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72.png"; sourceTree = "<group>"; };
-		AE4B8C5C176D43D100A80E5A /* RCRechabilityStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCRechabilityStatusView.h; sourceTree = "<group>"; };
-		AE4B8C5D176D43D100A80E5A /* RCRechabilityStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCRechabilityStatusView.m; sourceTree = "<group>"; };
+		AE4B8C5C176D43D100A80E5A /* EPPZRechabilityStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPZRechabilityStatusView.h; sourceTree = "<group>"; };
+		AE4B8C5D176D43D100A80E5A /* EPPZRechabilityStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPPZRechabilityStatusView.m; sourceTree = "<group>"; };
+		AE8F8607176E39FB00BB0273 /* RCReachabilityClientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCReachabilityClientViewController.h; sourceTree = "<group>"; };
+		AE8F8608176E39FB00BB0273 /* RCReachabilityClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCReachabilityClientViewController.m; sourceTree = "<group>"; };
+		AE8F860C176E3A2C00BB0273 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
+		AE8F860E176E3AEE00BB0273 /* RCReachabilityClientViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCReachabilityClientViewController.xib; sourceTree = "<group>"; };
+		AE8F8610176E419800BB0273 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		AEEBC0E7176DF9A5006DC50B /* EPPZReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPZReachability.h; sourceTree = "<group>"; };
+		AEEBC0E8176DF9A5006DC50B /* EPPZReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPPZReachability.m; sourceTree = "<group>"; };
+		AEEBC0EA176E0807006DC50B /* NSString+EPPZReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EPPZReachability.h"; sourceTree = "<group>"; };
+		AEEBC0EB176E0807006DC50B /* NSString+EPPZReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EPPZReachability.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE8F8611176E419800BB0273 /* AudioToolbox.framework in Frameworks */,
 				AE1D57CA176CEB8F003699F7 /* UIKit.framework in Frameworks */,
 				AE1D57CC176CEB8F003699F7 /* Foundation.framework in Frameworks */,
 				AE1D57CE176CEB8F003699F7 /* CoreGraphics.framework in Frameworks */,
@@ -87,7 +98,6 @@
 		AE1D57C8176CEB8F003699F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AE1D57F2176CEE1F003699F7 /* SystemConfiguration.framework */,
 				AE1D57C9176CEB8F003699F7 /* UIKit.framework */,
 				AE1D57CB176CEB8F003699F7 /* Foundation.framework */,
 				AE1D57CD176CEB8F003699F7 /* CoreGraphics.framework */,
@@ -100,7 +110,8 @@
 			children = (
 				AE1D57D8176CEB8F003699F7 /* RCAppDelegate.h */,
 				AE1D57D9176CEB8F003699F7 /* RCAppDelegate.m */,
-				AE1D57EF176CECFE003699F7 /* View */,
+				AEEBC0ED176E0CC4006DC50B /* EPPZReachability */,
+				AE1D57EF176CECFE003699F7 /* Views */,
 				AE1D57D0176CEB8F003699F7 /* Supporting Files */,
 			);
 			path = "eppz!reachability";
@@ -109,6 +120,7 @@
 		AE1D57D0176CEB8F003699F7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AE8F860C176E3A2C00BB0273 /* README.md */,
 				AE1D57D1176CEB8F003699F7 /* eppz!reachability-Info.plist */,
 				AE1D57D2176CEB8F003699F7 /* InfoPlist.strings */,
 				AE1D57D5176CEB8F003699F7 /* main.m */,
@@ -124,24 +136,45 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		AE1D57EF176CECFE003699F7 /* View */ = {
+		AE1D57EF176CECFE003699F7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AE1D57E1176CEB8F003699F7 /* RCViewController.h */,
-				AE1D57E2176CEB8F003699F7 /* RCViewController.m */,
-				AE1D57F0176CEDE7003699F7 /* RCViewController.xib */,
-				AE4B8C5F176D54D800A80E5A /* Reachability status view */,
+				AE8F8607176E39FB00BB0273 /* RCReachabilityClientViewController.h */,
+				AE8F8608176E39FB00BB0273 /* RCReachabilityClientViewController.m */,
+				AE8F860E176E3AEE00BB0273 /* RCReachabilityClientViewController.xib */,
+				AE4B8C5F176D54D800A80E5A /* EPPZReachability status view */,
 			);
-			name = View;
+			name = Views;
 			sourceTree = "<group>";
 		};
-		AE4B8C5F176D54D800A80E5A /* Reachability status view */ = {
+		AE4B8C5F176D54D800A80E5A /* EPPZReachability status view */ = {
 			isa = PBXGroup;
 			children = (
-				AE4B8C5C176D43D100A80E5A /* RCRechabilityStatusView.h */,
-				AE4B8C5D176D43D100A80E5A /* RCRechabilityStatusView.m */,
+				AE8F8610176E419800BB0273 /* AudioToolbox.framework */,
+				AE4B8C5C176D43D100A80E5A /* EPPZRechabilityStatusView.h */,
+				AE4B8C5D176D43D100A80E5A /* EPPZRechabilityStatusView.m */,
 			);
-			name = "Reachability status view";
+			name = "EPPZReachability status view";
+			sourceTree = "<group>";
+		};
+		AEEBC0ED176E0CC4006DC50B /* EPPZReachability */ = {
+			isa = PBXGroup;
+			children = (
+				AE1D57F2176CEE1F003699F7 /* SystemConfiguration.framework */,
+				AEEBC0E7176DF9A5006DC50B /* EPPZReachability.h */,
+				AEEBC0E8176DF9A5006DC50B /* EPPZReachability.m */,
+				AEEBC0EE176E0CCC006DC50B /* NSString+EPPZReachability */,
+			);
+			name = EPPZReachability;
+			sourceTree = "<group>";
+		};
+		AEEBC0EE176E0CCC006DC50B /* NSString+EPPZReachability */ = {
+			isa = PBXGroup;
+			children = (
+				AEEBC0EA176E0807006DC50B /* NSString+EPPZReachability.h */,
+				AEEBC0EB176E0807006DC50B /* NSString+EPPZReachability.m */,
+			);
+			name = "NSString+EPPZReachability";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,11 +233,12 @@
 				AE1D57DC176CEB8F003699F7 /* Default.png in Resources */,
 				AE1D57DE176CEB8F003699F7 /* Default@2x.png in Resources */,
 				AE1D57E0176CEB8F003699F7 /* Default-568h@2x.png in Resources */,
-				AE1D57F1176CEDE7003699F7 /* RCViewController.xib in Resources */,
 				AE1D57F8176CEF63003699F7 /* icon.png in Resources */,
 				AE1D57F9176CEF63003699F7 /* icon@2x.png in Resources */,
 				AE1D57FA176CEF63003699F7 /* icon-72@2x.png in Resources */,
 				AE1D57FB176CEF63003699F7 /* icon-72.png in Resources */,
+				AE8F860D176E3A2C00BB0273 /* README.md in Resources */,
+				AE8F860F176E3AEE00BB0273 /* RCReachabilityClientViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,8 +251,10 @@
 			files = (
 				AE1D57D6176CEB8F003699F7 /* main.m in Sources */,
 				AE1D57DA176CEB8F003699F7 /* RCAppDelegate.m in Sources */,
-				AE1D57E3176CEB8F003699F7 /* RCViewController.m in Sources */,
-				AE4B8C5E176D43D100A80E5A /* RCRechabilityStatusView.m in Sources */,
+				AE4B8C5E176D43D100A80E5A /* EPPZRechabilityStatusView.m in Sources */,
+				AEEBC0E9176DF9A5006DC50B /* EPPZReachability.m in Sources */,
+				AEEBC0EC176E0807006DC50B /* NSString+EPPZReachability.m in Sources */,
+				AE8F860A176E39FB00BB0273 /* RCReachabilityClientViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,9 +333,11 @@
 		AE1D57ED176CEB8F003699F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "eppz!reachability/eppz!reachability-Prefix.pch";
 				INFOPLIST_FILE = "eppz!reachability/eppz!reachability-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -312,6 +350,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "eppz!reachability/eppz!reachability-Prefix.pch";
 				INFOPLIST_FILE = "eppz!reachability/eppz!reachability-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

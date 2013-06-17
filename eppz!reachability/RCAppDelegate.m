@@ -11,19 +11,31 @@
 //
 
 #import "RCAppDelegate.h"
+#import "RCReachabilityClientViewController.h"
 
-#import "RCViewController.h"
 
 @implementation RCAppDelegate
 
 
 -(BOOL)application:(UIApplication*) application didFinishLaunchingWithOptions:(NSDictionary*) launchOptions
 {
+    //For debugging.
+    NSSetUncaughtExceptionHandler(&exceptionHandler);
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    UIViewController *viewController = [[RCViewController alloc] initWithNibName:@"RCViewController" bundle:nil];
+    UIViewController *viewController = [[RCReachabilityClientViewController alloc] initWithNibName:@"RCReachabilityClientViewController" bundle:nil];
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+void exceptionHandler(NSException *exception)
+{    
+    [[[UIAlertView alloc] initWithTitle:@"Exception"
+                               message:[NSString stringWithFormat:@"Name: %@ Reason: %@", exception.name, exception.reason]
+                              delegate:nil
+                     cancelButtonTitle:@"Pity."
+                      otherButtonTitles:nil] show];
 }
 
 
