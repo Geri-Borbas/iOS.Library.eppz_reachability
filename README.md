@@ -1,4 +1,4 @@
-## ![eppz!tools](http://eppz.eu/layout/common/eppz_50_GitHub.png) eppz!reachability
+## ![eppz!tools](http://www.eppz.eu/beacons/eppz!reachability.png) eppz!reachability
 A pretty comfortable reachability class to make our life easier. Block-based on-demand implementaion won't scatter you code, nor block your main thread. **It also works fine with IP addresses as well (!)**.
 ```Objective-C
 //Get status on-demand.
