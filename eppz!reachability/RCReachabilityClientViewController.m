@@ -18,7 +18,7 @@
 
 -(void)textFieldDidBeginEditing:(UITextField*) textField
 {
-    [EPPZReachability stopListeningHost:self.statusView.hostNameOrIPaddress];
+    [EPPZReachability stopListeningHost:self.statusView.hostNameOrIPaddress delegate:self];
     [self.statusView reset];
 }
 

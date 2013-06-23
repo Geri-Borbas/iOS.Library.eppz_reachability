@@ -11,6 +11,9 @@
 #import <arpa/inet.h>
 
 
+typedef void (^EPPZReachCompletitionBlock)();
+
+
 @interface EPPZReachability ()
 
 @property (nonatomic, weak) id <EPPZReachabilityDelegate> delegate;
@@ -19,21 +22,11 @@
 
 +(void)addReachabilityToIndex:(EPPZReachability*) reachability;
 +(void)removeReachabilityFromIndex:(EPPZReachability*) reachability;
-+(EPPZReachability*)reachabilityForHost:(NSString*) hostNameOrAddress;
-+(void)stopListeningHost:(NSString*) hostNameOrIPaddress;
 
 @end
 
 
 @implementation EPPZReachability
-
-
-+(EPPZReachability*)reachabilityInstanceForHost:(NSString*) hostNameOrAddress
-{
-    EPPZReachability *instance = [self reachabilityForHost:hostNameOrAddress];
-    if (instance == nil) instance = [[self alloc] initWithHost:hostNameOrAddress];
-    return instance;
-}
 
 
 #pragma mark - Synchronous reachability (works with IP addresses as well)
@@ -43,12 +36,33 @@
     EPPZRLog(@"EPPZReachability ----------");
     EPPZRLog(@"EPPZReachability reachHost: '%@'", hostNameOrAddress);
     
-    EPPZReachability *reachability = [self reachabilityInstanceForHost:hostNameOrAddress];
-    reachability.completition = completition;
-    [self addReachabilityToIndex:reachability];
+    EPPZReachability *instance = [[self alloc] initWithHost:hostNameOrAddress];;
+    instance.completition = completition;
     
-    [reachability reach];
+    [self addReachabilityToIndex:instance]; //Retain.
+    [instance reachWithCompletition:^(EPPZReachability* reachability)
+    {
+        //Do not tear down.
+        if (reachability.completition) reachability.completition(reachability);
+        [reachability tearDown]; //Release.
+    }];
+}
+
++(void)reachObservedHost:(NSString*) hostNameOrAddress completition:(EPPZReachabilityCompletitionBlock) completition
+{
+    EPPZRLog(@"EPPZReachability ----------");
+    EPPZRLog(@"EPPZReachability reachObservedHost: '%@'", hostNameOrAddress);
     
+    EPPZReachability *instance = [[self alloc] initWithHost:hostNameOrAddress]; //Probably there is a reachability allocated out there.
+    instance.completition = completition;
+    
+    [self addReachabilityToIndex:instance]; //Retain.
+    [instance reachWithCompletition:^(EPPZReachability* reachability)
+    {
+        //Do tear down (as well).
+        if (reachability.completition) reachability.completition(reachability);
+        [reachability tearDown]; //Release.
+    }];
 }
 
 
@@ -59,11 +73,11 @@
     EPPZRLog(@"EPPZReachability ----------");
     EPPZRLog(@"EPPZReachability listenHost: '%@'", hostNameOrAddress);
     
-    EPPZReachability *reachability = [self reachabilityInstanceForHost:hostNameOrAddress];
-    reachability.delegate = delegate;
-    [self addReachabilityToIndex:reachability];
+    EPPZReachability *instance = [[self alloc] initWithHost:hostNameOrAddress];
+    instance.delegate = delegate;
+    [self addReachabilityToIndex:instance];
     
-    [reachability listen];
+    [instance listen];
 }
 
 
@@ -110,7 +124,7 @@
 
 #pragma mark - Features
 
--(void)reach
+-(void)reachWithCompletition:(EPPZReachabilityCompletitionBlock) completition
 {
     EPPZRLog(@"EPPZReachability reach '%@'", self.hostNameOrAddress);
     
@@ -123,11 +137,10 @@
             [self parseFlags:flags];
             dispatch_async(dispatch_get_main_queue(), ^ //Dispatch completition callback on the main thread.
             {
+                EPPZRLog(@"EPPZReachability got flags '%@'", self.hostNameOrAddress);                
                 if (self.completition) self.completition(self);
             });
         }
-        
-        [self tearDown];
     });
 }
 
@@ -220,17 +233,14 @@ static void reachabilityCallback(SCNetworkReachabilityRef reachabilityRef, SCNet
         _notReachable = (self.reachableViaWiFi == NO && self.reachableViaCellular == NO);   
 }
 
--(void)dealloc
-{ EPPZRLog(@"EPPZReachability dealloc '%@'", self.hostNameOrAddress); }
-
 
 #pragma mark - Reachability collection maintanance 
 
-__strong static NSMutableDictionary *_reachabilityIndex = nil;
+__strong static NSMutableArray *_reachabilityIndex = nil;
 
-+(NSMutableDictionary*)reachabilityIndex //Like a 'Class property'.
++(NSMutableArray*)reachabilityIndex //Like a 'Class property'.
 {
-    if (_reachabilityIndex == nil) _reachabilityIndex = [NSMutableDictionary new];
+    if (_reachabilityIndex == nil) _reachabilityIndex = [NSMutableArray new];
     return _reachabilityIndex;
 }
 
@@ -241,7 +251,7 @@ __strong static NSMutableDictionary *_reachabilityIndex = nil;
     if (reachability != nil)
     {
         //Replace previous reachability for this host.
-        [[self reachabilityIndex] setObject:reachability forKey:reachability.hostNameOrAddress];
+        [[self reachabilityIndex] addObject:reachability];
     }
     
     EPPZRLog(@"EPPZReachability reachabilityCount: <%i>", [[self reachabilityIndex] count]);
@@ -252,39 +262,44 @@ __strong static NSMutableDictionary *_reachabilityIndex = nil;
     EPPZRLog(@"EPPZReachability removeReachabilityFromIndex '%@'", reachability.hostNameOrAddress);
     
     if (reachability != nil)
-        if (reachability.hostNameOrAddress != nil)
-            if ([[[self reachabilityIndex] allKeys] containsObject:reachability.hostNameOrAddress])
-                [[self reachabilityIndex] removeObjectForKey:reachability.hostNameOrAddress];
+        if ([[self reachabilityIndex] containsObject:reachability])
+                [[self reachabilityIndex] removeObject:reachability];
     
     EPPZRLog(@"EPPZReachability reachabilityCount: <%i>", [[self reachabilityIndex] count]);        
 }
 
-+(EPPZReachability*)reachabilityForHost:(NSString*) hostNameOrAddress
++(void)stopListeningHost:(NSString*) hostNameOrAddress delegate:(id<EPPZReachabilityDelegate>) delegate
 {
-    if (hostNameOrAddress != nil)
-        if ([[[self reachabilityIndex] allKeys] containsObject:hostNameOrAddress])
-            return [[self reachabilityIndex] objectForKey:hostNameOrAddress];
-    return nil;
-}
-
-+(void)stopListeningHost:(NSString*) hostNameOrIPaddress
-{
-    //Tear down SCNetworkReachability instance.
-    EPPZReachability *reachability = [self reachabilityForHost:hostNameOrIPaddress];
-    [reachability tearDown];
+    //Search for a matching instance.
+    EPPZReachability *matchingReachability;
+    for (EPPZReachability *eachReachability in [self reachabilityIndex])
+    {
+        if (eachReachability.delegate == delegate)
+            if ([eachReachability.hostNameOrAddress isEqualToString:hostNameOrAddress])
+            {
+                matchingReachability = eachReachability;
+                break;
+            }
+    }
+    
+    //Unschedule invoking callbacks from the main run loop.
+    SCNetworkReachabilityUnscheduleFromRunLoop(matchingReachability.reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+    [matchingReachability tearDown];
 }
 
 -(void)tearDown
 {    
     EPPZRLog(@"EPPZReachability tearDown '%@'", self.hostNameOrAddress);
-
-    if (self.reachabilityRef != NULL)
-    {
-        SCNetworkReachabilityUnscheduleFromRunLoop(self.reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
-        CFRelease(self.reachabilityRef);
-    }
-    
     [self.class removeReachabilityFromIndex:self];
 }
+
+-(void)dealloc
+{
+    EPPZRLog(@"EPPZReachability dealloc '%@'", self.hostNameOrAddress);
+    
+    if (self.reachabilityRef != NULL)
+    { CFRelease(self.reachabilityRef); }
+}
+
 
 @end

@@ -14,6 +14,7 @@
 
 //May enable for debugging/inspecting.
 #define EPPZ_REACHABILITY_LOGGING YES
+
 #define EPPZRLog if (EPPZ_REACHABILITY_LOGGING) NSLog
 
 
@@ -60,8 +61,9 @@ typedef void(^EPPZReachabilityCompletitionBlock)(EPPZReachability* reachability)
 #pragma mark - Features
 
 +(void)listenHost:(NSString*) hostNameOrAddress delegate:(id<EPPZReachabilityDelegate>) delegate; 
-+(void)stopListeningHost:(NSString*) hostNameOrAddress;
++(void)stopListeningHost:(NSString*) hostNameOrAddress delegate:(id<EPPZReachabilityDelegate>) delegate;
 
+//This method is a one shot method, reachability instance will deallocated after use.
 +(void)reachHost:(NSString*) hostNameOrAddress completition:(EPPZReachabilityCompletitionBlock) completition; //Will call back on the main thread.
 
 

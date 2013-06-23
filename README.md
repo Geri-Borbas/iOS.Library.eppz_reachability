@@ -33,8 +33,7 @@ My personal favourite is that this implementation **just works fine with IP addr
 +(void)listenHost:(NSString*) hostNameOrAddress delegate:(id<EPPZReachabilityDelegate>) delegate; 
 +(void)reachHost:(NSString*) hostNameOrAddress completition:(EPPZReachabilityCompletitionBlock) completition;
 ```
-As you may notice there are no any instances returned, since the class maintains a collection of EPPZReachability objects using *hostNameOrAddress* as a key. Keep in mind, when you invoke more *listen* calls to the same host, the previous listening instance get released.
-I have not tested under every circumstances, so if you experience any misbehaviour please let me know by leaving a comment at the corresponding blog post [Simplest Reachability ever](http://eppz.eu/blog/?p=241) (though, I'm gonna use it in production soon).
+As you may notice there are no any instances returned, since the class maintains a collection of EPPZReachability objects. I have not tested under every circumstances, so if you experience any misbehaviour please let me know by leaving a comment at the corresponding blog post [Simplest Reachability ever](http://eppz.eu/blog/?p=241) (though, I'm gonna use it in production soon).
 Hope you like it as I do.
 #### License
 > Licensed under the [Open Source MIT license](http://en.wikipedia.org/wiki/MIT_License).
