@@ -37,3 +37,5 @@ As you may notice there are no any instances returned, since the class maintains
 Hope you like it as I do.
 #### License
 > Licensed under the [Open Source MIT license](http://en.wikipedia.org/wiki/MIT_License).
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/f18318946db21ca9cc72e360610682c2 "githalytics.com")](http://githalytics.com/eppz/eppz-reachability)
