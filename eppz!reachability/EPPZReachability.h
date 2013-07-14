@@ -13,8 +13,7 @@
 
 
 //May enable for debugging/inspecting.
-#define EPPZ_REACHABILITY_LOGGING YES
-
+#define EPPZ_REACHABILITY_LOGGING NO
 #define EPPZRLog if (EPPZ_REACHABILITY_LOGGING) NSLog
 
 
