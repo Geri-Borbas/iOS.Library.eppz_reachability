@@ -39,7 +39,5 @@ Hope you like it as I do.
 > Licensed under the [Open Source MIT license](http://en.wikipedia.org/wiki/MIT_License).
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/f18318946db21ca9cc72e360610682c2 "githalytics.com")](http://githalytics.com/eppz/eppz-reachability)
-
-
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/eppz/eppz-reachability/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
