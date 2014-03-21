@@ -108,6 +108,7 @@
 		AE1D57CF176CEB8F003699F7 /* eppz!reachability */ = {
 			isa = PBXGroup;
 			children = (
+				AE8F860C176E3A2C00BB0273 /* README.md */,
 				AE1D57D8176CEB8F003699F7 /* RCAppDelegate.h */,
 				AE1D57D9176CEB8F003699F7 /* RCAppDelegate.m */,
 				AEEBC0ED176E0CC4006DC50B /* EPPZReachability */,
@@ -120,7 +121,6 @@
 		AE1D57D0176CEB8F003699F7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AE8F860C176E3A2C00BB0273 /* README.md */,
 				AE1D57D1176CEB8F003699F7 /* eppz!reachability-Info.plist */,
 				AE1D57D2176CEB8F003699F7 /* InfoPlist.strings */,
 				AE1D57D5176CEB8F003699F7 /* main.m */,

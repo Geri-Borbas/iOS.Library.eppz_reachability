@@ -42,7 +42,7 @@
 {
     //Reachability.
     [EPPZReachability reachHost:hostNameOrIPaddress
-                   completition:^(EPPZReachability *reachability)
+                     completion:^(EPPZReachability *reachability)
     {
         //UI.
         [self.statusView showReachabilityStatus:reachability];

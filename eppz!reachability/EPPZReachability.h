@@ -12,39 +12,40 @@
 #import "NSString+EPPZReachability.h"
 
 
-//May enable for debugging/inspecting.
 #define EPPZ_REACHABILITY_LOGGING NO
 #define EPPZRLog if (EPPZ_REACHABILITY_LOGGING) NSLog
 
 
-//Completition block.
 @class EPPZReachability;
-typedef void(^EPPZReachabilityCompletitionBlock)(EPPZReachability* reachability);
+typedef void(^EPPZReachabilityCompletionBlock)(EPPZReachability* reachability);
+typedef void(^EPPZReachabilityCompletitionBlock)(EPPZReachability* reachability) DEPRECATED_MSG_ATTRIBUTE("Use `EPPZReachabilityCompletionBlock` instead.");
 
 
-//Delegate.
 @protocol EPPZReachabilityDelegate <NSObject>
--(void)reachabilityChanged:(EPPZReachability*) reachability; //Will call back on the main thread.
+-(void)reachabilityChanged:(EPPZReachability*) reachability;
 @end
 
 
 @interface EPPZReachability : NSObject
 
 
-#pragma mark - Reachability information
+#pragma mark - User defined
 
-//User-defined trough factory.
 @property (nonatomic, readonly) NSString *hostNameOrAddress;
 @property (nonatomic, readonly) NSString *hostName;
 @property (nonatomic, readonly) NSString *address;
 
-//Networ status flags (for humans).
+
+#pragma mark - Network status flag aliases
+
 @property (nonatomic, readonly) BOOL reachable;
 @property (nonatomic, readonly) BOOL notReachable;
 @property (nonatomic, readonly) BOOL reachableViaCellular;
 @property (nonatomic, readonly) BOOL reachableViaWiFi;
 
-//Reachability flags and their aliases (for the curious minds).
+
+#pragma mark - Reachability flags
+
 @property (nonatomic, readonly) SCNetworkReachabilityFlags flags;
 @property (nonatomic, readonly) BOOL cellularFlag;
 @property (nonatomic, readonly) BOOL reachableFlag;
@@ -59,11 +60,53 @@ typedef void(^EPPZReachabilityCompletitionBlock)(EPPZReachability* reachability)
 
 #pragma mark - Features
 
-+(void)listenHost:(NSString*) hostNameOrAddress delegate:(id<EPPZReachabilityDelegate>) delegate; 
-+(void)stopListeningHost:(NSString*) hostNameOrAddress delegate:(id<EPPZReachabilityDelegate>) delegate;
+/*!
+ 
+ Listens to the given host (or IP) with delegate callbacks
+ on change. The created instance gonna be retained internally.
+ Call `stopListeningHost:delegate:` to release instance.
+ 
+ @param hostNameOrAddress Host name or IP address to listen to.
+ @param delegate
+ Delegate object that is to be listening to reachability changes.
+ Methods will be called on main thread
+ 
+*/
++(void)listenHost:(NSString*) hostNameOrAddress
+         delegate:(id<EPPZReachabilityDelegate>) delegate;
 
-//This method is a one shot method, reachability instance will deallocated after use.
-+(void)reachHost:(NSString*) hostNameOrAddress completition:(EPPZReachabilityCompletitionBlock) completition; //Will call back on the main thread.
+/*!
+ 
+ Stops a previously started host (or IP) listening.
+
+ @param hostNameOrAddress Host name or IP address is beign listened to.
+ @param delegate Delegate object that is listening to reachability changes.
+ 
+ */
++(void)stopListeningHost:(NSString*) hostNameOrAddress
+                delegate:(id<EPPZReachabilityDelegate>) delegate;
+
+/*!
+ 
+ A one shot method that inspect a host (or IP) if it is reachable.
+ Reachability instance gonna be deallocated after completion callback.
+ 
+ @param hostNameOrAddress Host name or IP address to inspect.
+ @param completion
+ Completion callback upon reachability state retrival. Will be called
+ on main thread.
+ 
+ */
++(void)reachHost:(NSString*) hostNameOrAddress
+      completion:(EPPZReachabilityCompletionBlock) completion;
+
+/*
+ 
+ Previous version with bad wording.
+ 
+ */
++(void)reachHost:(NSString*) hostNameOrAddress
+    completition:(EPPZReachabilityCompletitionBlock) completition DEPRECATED_MSG_ATTRIBUTE("Use `reachHost:completion:` instead.");
 
 
 @end
